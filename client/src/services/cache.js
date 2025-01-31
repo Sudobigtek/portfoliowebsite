@@ -5,7 +5,7 @@ export const cacheService = {
   set(key, data, expiry = DEFAULT_EXPIRY) {
     const item = {
       data,
-      expiry: Date.now() + expiry
+      expiry: Date.now() + expiry,
     };
     localStorage.setItem(CACHE_PREFIX + key, JSON.stringify(item));
   },
@@ -31,5 +31,5 @@ export const cacheService = {
     Object.keys(localStorage)
       .filter(key => key.startsWith(CACHE_PREFIX))
       .forEach(key => localStorage.removeItem(key));
-  }
-}; 
+  },
+};

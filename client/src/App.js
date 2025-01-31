@@ -31,10 +31,10 @@ function App() {
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+        setMode(prevMode => (prevMode === 'light' ? 'dark' : 'light'));
       },
     }),
-    [],
+    []
   );
 
   const theme = useMemo(
@@ -125,47 +125,46 @@ function App() {
           borderRadius: 0,
         },
       }),
-    [mode],
+    [mode]
   );
 
   const location = useLocation();
 
   useEffect(() => {
     if (process.env.REACT_APP_GA_MEASUREMENT_ID) {
-      ReactGA.send({ hitType: "pageview", page: location.pathname });
+      ReactGA.send({ hitType: 'pageview', page: location.pathname });
     }
   }, [location]);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
-      <ErrorBoundary
-        FallbackComponent={ErrorFallback}
-        onReset={() => window.location.reload()}
-      >
+      <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}>
         <NotificationProvider>
           <HelmetProvider>
             <ThemeProvider theme={theme}>
               <CssBaseline />
               <React.Suspense fallback={<LoadingScreen />}>
                 <Router>
-                  <div style={{ 
-                    minHeight: '100vh',
-                    display: 'flex',
-                    flexDirection: 'column'
-                  }}>
+                  <div
+                    style={{
+                      minHeight: '100vh',
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
                     <Routes>
                       <Route path="/" element={<Home />} />
                       <Route path="/portfolio" element={<Portfolio />} />
                       <Route path="/about" element={<About />} />
                       <Route path="/contact" element={<Contact />} />
                       <Route path="/admin/login" element={<Login />} />
-                      <Route 
-                        path="/admin/dashboard" 
+                      <Route
+                        path="/admin/dashboard"
                         element={
                           <ProtectedRoute>
                             <Dashboard />
                           </ProtectedRoute>
-                        } 
+                        }
                       />
                       <Route path="/admin/forgot-password" element={<ForgotPassword />} />
                       <Route path="/admin/reset-password/:token" element={<ResetPassword />} />
@@ -183,4 +182,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;

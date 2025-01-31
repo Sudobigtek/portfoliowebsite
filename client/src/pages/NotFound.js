@@ -7,17 +7,14 @@ import SEO from '../components/SEO';
 const NotFound = () => {
   return (
     <>
-      <SEO 
-        title="Page Not Found"
-        description="The page you're looking for doesn't exist."
-      />
+      <SEO title="Page Not Found" description="The page you're looking for doesn't exist." />
       <Navigation />
       <Container maxWidth="sm">
         <Box
           sx={{
             mt: 8,
             mb: 8,
-            textAlign: 'center'
+            textAlign: 'center',
           }}
         >
           <Typography variant="h2" component="h1" gutterBottom>
@@ -29,12 +26,7 @@ const NotFound = () => {
           <Typography color="text.secondary" paragraph>
             The page you're looking for doesn't exist or has been moved.
           </Typography>
-          <Button
-            component={Link}
-            to="/"
-            variant="contained"
-            sx={{ mt: 3 }}
-          >
+          <Button component={Link} to="/" variant="contained" sx={{ mt: 3 }}>
             Return Home
           </Button>
         </Box>
@@ -43,4 +35,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound; 
+export default NotFound;

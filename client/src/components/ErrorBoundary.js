@@ -22,7 +22,7 @@ class ErrorBoundary extends React.Component {
             justifyContent: 'center',
             minHeight: '400px',
             textAlign: 'center',
-            p: 3
+            p: 3,
           }}
         >
           <Typography variant="h5" gutterBottom>
@@ -31,10 +31,7 @@ class ErrorBoundary extends React.Component {
           <Typography variant="body2" color="text.secondary" paragraph>
             Please try refreshing the page
           </Typography>
-          <Button
-            variant="contained"
-            onClick={() => window.location.reload()}
-          >
+          <Button variant="contained" onClick={() => window.location.reload()}>
             Refresh Page
           </Button>
         </Box>
@@ -45,4 +42,4 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-export default ErrorBoundary; 
+export default ErrorBoundary;

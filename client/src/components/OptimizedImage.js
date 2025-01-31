@@ -3,15 +3,7 @@ import { Box, Skeleton } from '@mui/material';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
-const OptimizedImage = ({
-  src,
-  alt,
-  width,
-  height,
-  quality = 75,
-  priority = false,
-  ...props
-}) => {
+const OptimizedImage = ({ src, alt, width, height, quality = 75, priority = false, ...props }) => {
   const [loading, setLoading] = useState(!priority);
   const [error, setError] = useState(false);
   const [optimizedSrc, setOptimizedSrc] = useState('');
@@ -24,7 +16,7 @@ const OptimizedImage = ({
     url.searchParams.set('q', quality.toString());
     url.searchParams.set('w', width?.toString() || 'auto');
     if (height) url.searchParams.set('h', height.toString());
-    
+
     setOptimizedSrc(url.toString());
   }, [src, quality, width, height]);
 
@@ -37,7 +29,7 @@ const OptimizedImage = ({
           bgcolor: 'grey.200',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
         }}
       >
         Error loading image
@@ -69,4 +61,4 @@ const OptimizedImage = ({
   );
 };
 
-export default OptimizedImage; 
+export default OptimizedImage;

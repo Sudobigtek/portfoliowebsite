@@ -22,7 +22,7 @@ export const useAuth = () => {
 
     try {
       await axios.get('http://localhost:5000/api/auth/me', {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
       setIsAuthenticated(true);
     } catch (error) {
@@ -36,7 +36,7 @@ export const useAuth = () => {
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', {
         email,
-        password
+        password,
       });
       localStorage.setItem('token', response.data.token);
       setIsAuthenticated(true);
@@ -101,19 +101,19 @@ export const useAuthActions = () => {
   return {
     handleLogin,
     handleLogout,
-    user
+    user,
   };
 };
 
 export const usePermissions = () => {
   const { user } = useAuthContext();
 
-  const hasPermission = (permission) => {
+  const hasPermission = permission => {
     if (!user || !user.permissions) return false;
     return user.permissions.includes(permission);
   };
 
-  const checkPermissions = (requiredPermissions) => {
+  const checkPermissions = requiredPermissions => {
     if (!Array.isArray(requiredPermissions)) {
       requiredPermissions = [requiredPermissions];
     }
@@ -123,6 +123,6 @@ export const usePermissions = () => {
   return {
     hasPermission,
     checkPermissions,
-    permissions: user?.permissions || []
+    permissions: user?.permissions || [],
   };
-}; 
+};

@@ -15,7 +15,7 @@ export const NotificationProvider = ({ children }) => {
   const [notification, setNotification] = useState({
     open: false,
     message: '',
-    severity: 'info'
+    severity: 'info',
   });
 
   const showNotification = (message, severity = 'info') => {
@@ -35,8 +35,8 @@ export const NotificationProvider = ({ children }) => {
         onClose={hideNotification}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
-        <Alert 
-          onClose={hideNotification} 
+        <Alert
+          onClose={hideNotification}
           severity={notification.severity}
           variant="filled"
           elevation={6}
@@ -46,4 +46,4 @@ export const NotificationProvider = ({ children }) => {
       </Snackbar>
     </NotificationContext.Provider>
   );
-}; 
+};

@@ -9,7 +9,7 @@ import {
   IconButton,
   Chip,
   Button,
-  Box
+  Box,
 } from '@mui/material';
 import { Refresh as RefreshIcon, Backup as BackupIcon } from '@mui/icons-material';
 import axios from 'axios';
@@ -25,7 +25,7 @@ const BackupStatus = () => {
       setLoading(true);
       const token = localStorage.getItem('token');
       const response = await axios.get('/api/backups', {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
       setBackups(response.data);
     } catch (error) {
@@ -35,13 +35,10 @@ const BackupStatus = () => {
     }
   };
 
-  const triggerBackup = async (type) => {
+  const triggerBackup = async type => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post('/api/backups', 
-        { type },
-        { headers: { Authorization: `Bearer ${token}` }}
-      );
+      await axios.post('/api/backups', { type }, { headers: { Authorization: `Bearer ${token}` } });
       showNotification(`${type} backup initiated`, 'success');
       fetchBackups();
     } catch (error) {
@@ -63,7 +60,7 @@ const BackupStatus = () => {
       </Typography>
 
       <List>
-        {backups.map((backup) => (
+        {backups.map(backup => (
           <ListItem key={backup._id}>
             <ListItemText
               primary={backup.type}
@@ -100,4 +97,4 @@ const BackupStatus = () => {
   );
 };
 
-export default BackupStatus; 
+export default BackupStatus;

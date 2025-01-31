@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     if (token) {
       try {
         const response = await axios.get('/api/auth/me', {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         });
         setUser(response.data);
       } catch (error) {
@@ -66,12 +66,8 @@ export const AuthProvider = ({ children }) => {
     loading,
     login,
     logout,
-    isAuthenticated: !!user
+    isAuthenticated: !!user,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
-}; 
+  return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
+};

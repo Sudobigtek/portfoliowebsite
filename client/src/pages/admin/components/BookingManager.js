@@ -18,12 +18,9 @@ import {
   DialogContent,
   DialogActions,
   Button,
-  Alert
+  Alert,
 } from '@mui/material';
-import {
-  MoreVert as MoreVertIcon,
-  Delete as DeleteIcon
-} from '@mui/icons-material';
+import { MoreVert as MoreVertIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import axios from 'axios';
 
 const BookingManager = () => {
@@ -37,7 +34,7 @@ const BookingManager = () => {
   const statusColors = {
     pending: 'warning',
     confirmed: 'success',
-    cancelled: 'error'
+    cancelled: 'error',
   };
 
   useEffect(() => {
@@ -48,7 +45,7 @@ const BookingManager = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get('/api/bookings', {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
       setBookings(response.data);
     } catch (err) {
@@ -61,9 +58,10 @@ const BookingManager = () => {
   const handleStatusChange = async (bookingId, newStatus) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.patch(`/api/bookings/${bookingId}/status`, 
+      await axios.patch(
+        `/api/bookings/${bookingId}/status`,
         { status: newStatus },
-        { headers: { Authorization: `Bearer ${token}` }}
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       fetchBookings();
     } catch (err) {
@@ -76,7 +74,7 @@ const BookingManager = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.delete(`/api/bookings/${selectedBooking._id}`, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
       fetchBookings();
       setDeleteDialogOpen(false);
@@ -122,29 +120,21 @@ const BookingManager = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {bookings.map((booking) => (
+            {bookings.map(booking => (
               <TableRow key={booking._id}>
-                <TableCell>
-                  {new Date(booking.date).toLocaleDateString()}
-                </TableCell>
+                <TableCell>{new Date(booking.date).toLocaleDateString()}</TableCell>
                 <TableCell>{booking.name}</TableCell>
                 <TableCell>{booking.type}</TableCell>
                 <TableCell>
-                  {booking.email}<br />
+                  {booking.email}
+                  <br />
                   {booking.phone}
                 </TableCell>
                 <TableCell>
-                  <Chip
-                    label={booking.status}
-                    color={statusColors[booking.status]}
-                    size="small"
-                  />
+                  <Chip label={booking.status} color={statusColors[booking.status]} size="small" />
                 </TableCell>
                 <TableCell>
-                  <IconButton
-                    size="small"
-                    onClick={(e) => handleMenuClick(e, booking)}
-                  >
+                  <IconButton size="small" onClick={e => handleMenuClick(e, booking)}>
                     <MoreVertIcon />
                   </IconButton>
                 </TableCell>
@@ -154,18 +144,14 @@ const BookingManager = () => {
         </Table>
       </TableContainer>
 
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleMenuClose}
-      >
+      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
         <MenuItem onClick={() => handleStatusChange(selectedBooking?._id, 'confirmed')}>
           Confirm Booking
         </MenuItem>
         <MenuItem onClick={() => handleStatusChange(selectedBooking?._id, 'cancelled')}>
           Cancel Booking
         </MenuItem>
-        <MenuItem 
+        <MenuItem
           onClick={() => {
             handleMenuClose();
             setDeleteDialogOpen(true);
@@ -176,21 +162,14 @@ const BookingManager = () => {
         </MenuItem>
       </Menu>
 
-      <Dialog
-        open={deleteDialogOpen}
-        onClose={() => setDeleteDialogOpen(false)}
-      >
+      <Dialog open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(false)}>
         <DialogTitle>Delete Booking</DialogTitle>
         <DialogContent>
           Are you sure you want to delete this booking? This action cannot be undone.
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setDeleteDialogOpen(false)}>Cancel</Button>
-          <Button 
-            onClick={handleDelete} 
-            color="error"
-            variant="contained"
-          >
+          <Button onClick={handleDelete} color="error" variant="contained">
             Delete
           </Button>
         </DialogActions>
@@ -199,4 +178,4 @@ const BookingManager = () => {
   );
 };
 
-export default BookingManager; 
+export default BookingManager;

@@ -11,7 +11,7 @@ import {
   Tab,
   IconButton,
   Dialog,
-  DialogContent
+  DialogContent,
 } from '@mui/material';
 import { Close, ZoomIn } from '@mui/icons-material';
 import Navigation from '../components/Navigation';
@@ -34,7 +34,7 @@ const Portfolio = () => {
       imageUrl: '/images/portfolio/campaign1.jpg',
       photographer: 'John Smith',
       client: 'Fashion Brand',
-      date: '2023'
+      date: '2023',
     },
     {
       id: 2,
@@ -43,7 +43,7 @@ const Portfolio = () => {
       imageUrl: '/images/portfolio/editorial1.jpg',
       photographer: 'Jane Doe',
       client: 'Vogue Magazine',
-      date: '2023'
+      date: '2023',
     },
     // Add more items...
   ];
@@ -53,12 +53,11 @@ const Portfolio = () => {
     { value: 'campaign', label: 'Campaigns' },
     { value: 'editorial', label: 'Editorials' },
     { value: 'runway', label: 'Runway' },
-    { value: 'commercial', label: 'Commercial' }
+    { value: 'commercial', label: 'Commercial' },
   ];
 
-  const filteredItems = category === 'all'
-    ? portfolioItems
-    : portfolioItems.filter(item => item.category === category);
+  const filteredItems =
+    category === 'all' ? portfolioItems : portfolioItems.filter(item => item.category === category);
 
   // Add this schema in the Portfolio component
   const portfolioSchema = {
@@ -70,9 +69,9 @@ const Portfolio = () => {
         position: index + 1,
         name: item.title,
         description: `${item.category} - ${item.photographer}`,
-        contentUrl: item.imageUrl
-      }))
-    }
+        contentUrl: item.imageUrl,
+      })),
+    },
   };
 
   // Add useEffect for loading state
@@ -86,11 +85,12 @@ const Portfolio = () => {
   }, []);
 
   // Add advanced filtering and sorting
-  const advancedFilters = {
+  const filters = {
+    category: ['Editorial', 'Campaign', 'Runway'],
     year: ['2023', '2022', '2021'],
     location: ['New York', 'Paris', 'Milan'],
     photographer: ['John Doe', 'Jane Smith'],
-    publication: ['Vogue', 'Elle', 'Harper's Bazaar']
+    publication: ['Vogue', 'Elle', 'Harpers Bazaar'],
   };
 
   // Add grid/list view toggle
@@ -98,7 +98,7 @@ const Portfolio = () => {
 
   return (
     <>
-      <SEO 
+      <SEO
         title="Portfolio"
         description="View my professional modeling portfolio including editorial work, runway shows, and commercial campaigns."
         image={portfolioItems[0]?.imageUrl || '/images/og-image.jpg'}
@@ -121,11 +121,7 @@ const Portfolio = () => {
             scrollButtons="auto"
           >
             {categories.map(cat => (
-              <Tab
-                key={cat.value}
-                label={cat.label}
-                value={cat.value}
-              />
+              <Tab key={cat.value} label={cat.label} value={cat.value} />
             ))}
           </Tabs>
         </Box>
@@ -135,19 +131,19 @@ const Portfolio = () => {
           <Loading message="Loading portfolio..." />
         ) : (
           <Grid container spacing={3}>
-            {filteredItems.map((item) => (
+            {filteredItems.map(item => (
               <Grid item xs={12} sm={6} md={4} key={item.id}>
-                <Card 
-                  sx={{ 
+                <Card
+                  sx={{
                     height: '100%',
                     cursor: 'pointer',
                     transition: '0.3s',
                     '&:hover': {
                       transform: 'scale(1.02)',
                       '& .zoom-icon': {
-                        opacity: 1
-                      }
-                    }
+                        opacity: 1,
+                      },
+                    },
                   }}
                   onClick={() => setSelectedImage(item)}
                 >
@@ -192,8 +188,8 @@ const Portfolio = () => {
                     color: 'white',
                     bgcolor: 'rgba(0,0,0,0.5)',
                     '&:hover': {
-                      bgcolor: 'rgba(0,0,0,0.7)'
-                    }
+                      bgcolor: 'rgba(0,0,0,0.7)',
+                    },
                   }}
                 >
                   <Close />
@@ -207,7 +203,7 @@ const Portfolio = () => {
                     width: '100%',
                     height: 'auto',
                     maxHeight: '90vh',
-                    objectFit: 'contain'
+                    objectFit: 'contain',
                   }}
                 />
                 <Box sx={{ p: 2, bgcolor: 'background.paper' }}>
@@ -215,8 +211,10 @@ const Portfolio = () => {
                     {selectedImage.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Photographer: {selectedImage.photographer}<br />
-                    Client: {selectedImage.client}<br />
+                    Photographer: {selectedImage.photographer}
+                    <br />
+                    Client: {selectedImage.client}
+                    <br />
                     Date: {selectedImage.date}
                   </Typography>
                 </Box>
@@ -229,4 +227,4 @@ const Portfolio = () => {
   );
 };
 
-export default Portfolio; 
+export default Portfolio;

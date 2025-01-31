@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Container,
-  Box,
-  TextField,
-  Button,
-  Typography,
-  Alert
-} from '@mui/material';
+import { Container, Box, TextField, Button, Typography, Alert } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +8,7 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', credentials);
@@ -32,7 +25,7 @@ const Login = () => {
         <Typography variant="h4" component="h1" gutterBottom>
           Admin Login
         </Typography>
-        
+
         {error && (
           <Alert severity="error" sx={{ width: '100%', mb: 2 }}>
             {error}
@@ -48,7 +41,7 @@ const Login = () => {
             name="email"
             type="email"
             value={credentials.email}
-            onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
+            onChange={e => setCredentials({ ...credentials, email: e.target.value })}
           />
           <TextField
             margin="normal"
@@ -58,14 +51,9 @@ const Login = () => {
             name="password"
             type="password"
             value={credentials.password}
-            onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+            onChange={e => setCredentials({ ...credentials, password: e.target.value })}
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Sign In
           </Button>
         </Box>
@@ -74,4 +62,4 @@ const Login = () => {
   );
 };
 
-export default Login; 
+export default Login;

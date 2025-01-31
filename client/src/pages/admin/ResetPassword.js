@@ -9,7 +9,7 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText
+  ListItemText,
 } from '@mui/material';
 import { Check, Close } from '@mui/icons-material';
 import axios from 'axios';
@@ -24,14 +24,14 @@ const ResetPassword = () => {
   const navigate = useNavigate();
 
   const passwordRequirements = [
-    { label: 'At least 8 characters long', test: (p) => p.length >= 8 },
-    { label: 'Contains uppercase letter', test: (p) => /[A-Z]/.test(p) },
-    { label: 'Contains lowercase letter', test: (p) => /[a-z]/.test(p) },
-    { label: 'Contains number', test: (p) => /\d/.test(p) },
-    { label: 'Contains special character', test: (p) => /[!@#$%^&*(),.?":{}|<>]/.test(p) }
+    { label: 'At least 8 characters long', test: p => p.length >= 8 },
+    { label: 'Contains uppercase letter', test: p => /[A-Z]/.test(p) },
+    { label: 'Contains lowercase letter', test: p => /[a-z]/.test(p) },
+    { label: 'Contains number', test: p => /\d/.test(p) },
+    { label: 'Contains special character', test: p => /[!@#$%^&*(),.?":{}|<>]/.test(p) },
   ];
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setStatus('mismatch');
@@ -50,14 +50,16 @@ const ResetPassword = () => {
 
     try {
       await axios.put(`http://localhost:5000/api/auth/reset-password/${token}`, {
-        password
+        password,
       });
       setStatus('success');
       setTimeout(() => {
         navigate('/admin/login');
       }, 3000);
     } catch (error) {
-      setStatus(error.response?.data?.message === 'Too many password reset attempts' ? 'rateLimit' : 'error');
+      setStatus(
+        error.response?.data?.message === 'Too many password reset attempts' ? 'rateLimit' : 'error'
+      );
     } finally {
       setLoading(false);
     }
@@ -108,7 +110,7 @@ const ResetPassword = () => {
             label="New Password"
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
           />
           <TextField
             margin="normal"
@@ -117,7 +119,7 @@ const ResetPassword = () => {
             label="Confirm Password"
             type="password"
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={e => setConfirmPassword(e.target.value)}
           />
 
           <Typography variant="h6" sx={{ mt: 3, mb: 1 }}>
@@ -127,11 +129,7 @@ const ResetPassword = () => {
             {passwordRequirements.map((req, index) => (
               <ListItem key={index}>
                 <ListItemIcon>
-                  {req.test(password) ? (
-                    <Check color="success" />
-                  ) : (
-                    <Close color="error" />
-                  )}
+                  {req.test(password) ? <Check color="success" /> : <Close color="error" />}
                 </ListItemIcon>
                 <ListItemText primary={req.label} />
               </ListItem>
@@ -153,4 +151,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword; 
+export default ResetPassword;

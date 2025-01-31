@@ -14,7 +14,7 @@ import {
   useTheme,
   useMediaQuery,
   useScrollTrigger,
-  Divider
+  Divider,
 } from '@mui/material';
 import { Menu as MenuIcon, Instagram, Facebook, LinkedIn } from '@mui/icons-material';
 import { Link, useLocation } from 'react-router-dom';
@@ -28,39 +28,39 @@ const Navigation = () => {
 
   const trigger = useScrollTrigger({
     disableHysteresis: true,
-    threshold: 0
+    threshold: 0,
   });
 
   const menuItems = [
     { text: 'Home', path: '/' },
     { text: 'Portfolio', path: '/portfolio' },
     { text: 'About', path: '/about' },
-    { text: 'Contact', path: '/contact' }
+    { text: 'Contact', path: '/contact' },
   ];
 
   const socialLinks = [
     {
       icon: <Instagram />,
       url: process.env.REACT_APP_INSTAGRAM_URL || 'https://instagram.com/modelname',
-      label: 'Instagram'
+      label: 'Instagram',
     },
     {
       icon: <Facebook />,
       url: process.env.REACT_APP_FACEBOOK_URL || 'https://facebook.com/modelname',
-      label: 'Facebook'
+      label: 'Facebook',
     },
     {
       icon: <LinkedIn />,
       url: process.env.REACT_APP_LINKEDIN_URL || 'https://linkedin.com/in/modelname',
-      label: 'LinkedIn'
-    }
+      label: 'LinkedIn',
+    },
   ];
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const isActive = (path) => {
+  const isActive = path => {
     if (path === '/' && location.pathname !== '/') {
       return false;
     }
@@ -69,21 +69,21 @@ const Navigation = () => {
 
   const drawer = (
     <List>
-      {menuItems.map((item) => (
-        <ListItem 
-          button 
-          component={Link} 
-          to={item.path} 
+      {menuItems.map(item => (
+        <ListItem
+          button
+          component={Link}
+          to={item.path}
           key={item.text}
           onClick={handleDrawerToggle}
           selected={isActive(item.path)}
         >
-          <ListItemText 
-            primary={item.text} 
+          <ListItemText
+            primary={item.text}
             primaryTypographyProps={{
               style: {
-                fontWeight: isActive(item.path) ? 'bold' : 'normal'
-              }
+                fontWeight: isActive(item.path) ? 'bold' : 'normal',
+              },
             }}
           />
         </ListItem>
@@ -93,37 +93,37 @@ const Navigation = () => {
 
   return (
     <>
-      <AppBar 
-        position="fixed" 
-        color="transparent" 
+      <AppBar
+        position="fixed"
+        color="transparent"
         elevation={trigger ? 1 : 0}
         sx={{
-          backgroundColor: trigger 
-            ? theme.palette.mode === 'dark' 
+          backgroundColor: trigger
+            ? theme.palette.mode === 'dark'
               ? 'rgba(18, 18, 18, 0.98)'
               : 'rgba(255, 255, 255, 0.98)'
             : 'transparent',
           transition: 'all 0.3s ease-in-out',
           backdropFilter: trigger ? 'blur(8px)' : 'none',
-          borderBottom: trigger 
-            ? `1px solid ${theme.palette.mode === 'dark' 
-                ? 'rgba(255, 255, 255, 0.05)' 
-                : 'rgba(0, 0, 0, 0.05)'}`
-            : 'none'
+          borderBottom: trigger
+            ? `1px solid ${
+                theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'
+              }`
+            : 'none',
         }}
       >
         <Container maxWidth="lg">
           <Toolbar disableGutters>
-            <Typography 
-              variant="h6" 
-              component={Link} 
+            <Typography
+              variant="h6"
+              component={Link}
               to="/"
-              sx={{ 
+              sx={{
                 flexGrow: 1,
                 textDecoration: 'none',
                 color: trigger ? 'text.primary' : 'inherit',
                 fontWeight: 'light',
-                letterSpacing: '0.1em'
+                letterSpacing: '0.1em',
               }}
             >
               MODEL NAME
@@ -135,15 +135,15 @@ const Navigation = () => {
                 aria-label="open drawer"
                 edge="start"
                 onClick={handleDrawerToggle}
-                sx={{ 
-                  color: trigger ? 'text.primary' : 'inherit'
+                sx={{
+                  color: trigger ? 'text.primary' : 'inherit',
                 }}
               >
                 <MenuIcon />
               </IconButton>
             ) : (
               <Box>
-                {menuItems.map((item) => (
+                {menuItems.map(item => (
                   <Button
                     key={item.text}
                     component={Link}
@@ -153,8 +153,8 @@ const Navigation = () => {
                       color: trigger ? 'text.primary' : 'inherit',
                       fontWeight: isActive(item.path) ? 'bold' : 'normal',
                       '&:hover': {
-                        backgroundColor: 'rgba(0, 0, 0, 0.04)'
-                      }
+                        backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                      },
                     }}
                   >
                     {item.text}
@@ -165,15 +165,15 @@ const Navigation = () => {
 
             <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
               <DarkModeToggle />
-              {socialLinks.map((link) => (
+              {socialLinks.map(link => (
                 <IconButton
                   key={link.label}
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={link.label}
-                  sx={{ 
-                    color: trigger ? 'text.primary' : 'inherit'
+                  sx={{
+                    color: trigger ? 'text.primary' : 'inherit',
                   }}
                 >
                   {link.icon}
@@ -190,13 +190,13 @@ const Navigation = () => {
         open={mobileOpen}
         onClose={handleDrawerToggle}
         ModalProps={{
-          keepMounted: true // Better mobile performance
+          keepMounted: true, // Better mobile performance
         }}
         sx={{
           display: { xs: 'block', sm: 'none' },
-          '& .MuiDrawer-paper': { 
-            boxSizing: 'border-box', 
-            width: 240 
+          '& .MuiDrawer-paper': {
+            boxSizing: 'border-box',
+            width: 240,
           },
         }}
       >
@@ -209,4 +209,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation; 
+export default Navigation;

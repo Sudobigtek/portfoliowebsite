@@ -10,14 +10,14 @@ import {
   Box,
   Collapse,
   Divider,
-  Button
+  Button,
 } from '@mui/material';
 import {
   ExpandMore,
   ExpandLess,
   Delete as DeleteIcon,
   CheckCircle as CheckCircleIcon,
-  Email as EmailIcon
+  Email as EmailIcon,
 } from '@mui/icons-material';
 import axios from 'axios';
 
@@ -34,7 +34,7 @@ const MessageList = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get('/api/contact', {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
       setMessages(response.data);
     } catch (error) {
@@ -47,9 +47,10 @@ const MessageList = () => {
   const handleStatusChange = async (id, status) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.patch(`/api/contact/${id}`, 
+      await axios.patch(
+        `/api/contact/${id}`,
         { status },
-        { headers: { Authorization: `Bearer ${token}` }}
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       fetchMessages();
     } catch (error) {
@@ -57,12 +58,12 @@ const MessageList = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async id => {
     if (window.confirm('Are you sure you want to delete this message?')) {
       try {
         const token = localStorage.getItem('token');
         await axios.delete(`/api/contact/${id}`, {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         });
         fetchMessages();
       } catch (error) {
@@ -71,11 +72,11 @@ const MessageList = () => {
     }
   };
 
-  const handleExpand = (id) => {
+  const handleExpand = id => {
     setExpandedId(expandedId === id ? null : id);
   };
 
-  const getStatusColor = (status) => {
+  const getStatusColor = status => {
     switch (status) {
       case 'new':
         return 'error';
@@ -123,17 +124,10 @@ const MessageList = () => {
                   >
                     <EmailIcon />
                   </IconButton>
-                  <IconButton
-                    size="small"
-                    onClick={() => handleDelete(message._id)}
-                    color="error"
-                  >
+                  <IconButton size="small" onClick={() => handleDelete(message._id)} color="error">
                     <DeleteIcon />
                   </IconButton>
-                  <IconButton
-                    size="small"
-                    onClick={() => handleExpand(message._id)}
-                  >
+                  <IconButton size="small" onClick={() => handleExpand(message._id)}>
                     {expandedId === message._id ? <ExpandLess /> : <ExpandMore />}
                   </IconButton>
                 </Box>
@@ -142,9 +136,7 @@ const MessageList = () => {
               <ListItemText
                 primary={
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <Typography variant="subtitle1">
-                      {message.name}
-                    </Typography>
+                    <Typography variant="subtitle1">{message.name}</Typography>
                     <Chip
                       label={message.status}
                       size="small"
@@ -193,4 +185,4 @@ const MessageList = () => {
   );
 };
 
-export default MessageList; 
+export default MessageList;

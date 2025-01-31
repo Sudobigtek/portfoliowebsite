@@ -6,4 +6,4 @@ const PageTransition = ({ children }) => {
 // Add scroll animations
 const ScrollAnimation = ({ children }) => {
   // Reveal animations on scroll
-}; 
+};

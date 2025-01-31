@@ -10,7 +10,7 @@ const Loading = ({ message = 'Loading...' }) => {
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '200px',
-        gap: 2
+        gap: 2,
       }}
     >
       <CircularProgress size={40} />
@@ -21,4 +21,4 @@ const Loading = ({ message = 'Loading...' }) => {
   );
 };
 
-export default Loading; 
+export default Loading;

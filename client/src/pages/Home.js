@@ -10,7 +10,7 @@ import {
   CardContent,
   useTheme,
   useMediaQuery,
-  Paper
+  Paper,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
@@ -27,33 +27,33 @@ const Home = () => {
       id: 1,
       title: 'Latest Campaign',
       image: '/images/featured/campaign.jpg',
-      category: 'Campaign'
+      category: 'Campaign',
     },
     {
       id: 2,
       title: 'Fashion Week',
       image: '/images/featured/runway.jpg',
-      category: 'Runway'
+      category: 'Runway',
     },
     {
       id: 3,
       title: 'Magazine Cover',
       image: '/images/featured/editorial.jpg',
-      category: 'Editorial'
-    }
+      category: 'Editorial',
+    },
   ];
 
   const testimonials = [
     {
-      quote: "An absolute professional with incredible presence and versatility.",
-      author: "Jane Smith",
-      role: "Fashion Director, Vogue"
+      quote: 'An absolute professional with incredible presence and versatility.',
+      author: 'Jane Smith',
+      role: 'Fashion Director, Vogue',
     },
     {
-      quote: "Working with her was a true creative collaboration. Outstanding results every time.",
-      author: "John Davis",
-      role: "Celebrity Photographer"
-    }
+      quote: 'Working with her was a true creative collaboration. Outstanding results every time.',
+      author: 'John Davis',
+      role: 'Celebrity Photographer',
+    },
   ];
 
   // In the Home component, add this schema:
@@ -65,26 +65,27 @@ const Home = () => {
       name: 'Model Name',
       jobTitle: 'Professional Model',
       image: '/images/hero.jpg',
-      description: 'Professional model available for fashion shows, photo shoots, and brand campaigns.',
+      description:
+        'Professional model available for fashion shows, photo shoots, and brand campaigns.',
       url: process.env.REACT_APP_SITE_URL,
       sameAs: [
         'https://instagram.com/modelname',
         'https://facebook.com/modelname',
-        'https://linkedin.com/in/modelname'
-      ]
-    }
+        'https://linkedin.com/in/modelname',
+      ],
+    },
   };
 
   return (
     <>
-      <SEO 
+      <SEO
         title="Professional Model"
         description="Professional model available for fashion shows, photo shoots, and brand campaigns. View portfolio and book now."
         image="/images/hero.jpg"
         schema={homeSchema}
       />
       <Navigation />
-      
+
       {/* Hero Section */}
       <Box
         sx={{
@@ -103,28 +104,28 @@ const Home = () => {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'rgba(0,0,0,0.3)'
-          }
+            backgroundColor: 'rgba(0,0,0,0.3)',
+          },
         }}
       >
         <Container maxWidth="lg" sx={{ position: 'relative', color: 'white', textAlign: 'center' }}>
-          <Typography 
-            variant={isMobile ? 'h3' : 'h1'} 
-            component="h1" 
-            sx={{ 
+          <Typography
+            variant={isMobile ? 'h3' : 'h1'}
+            component="h1"
+            sx={{
               mb: 3,
               fontWeight: 'light',
-              letterSpacing: '0.1em'
+              letterSpacing: '0.1em',
             }}
           >
             MODEL NAME
           </Typography>
-          <Typography 
-            variant={isMobile ? 'h6' : 'h4'} 
-            sx={{ 
+          <Typography
+            variant={isMobile ? 'h6' : 'h4'}
+            sx={{
               mb: 4,
               fontWeight: 'light',
-              letterSpacing: '0.05em'
+              letterSpacing: '0.05em',
             }}
           >
             Professional Model & Influencer
@@ -138,8 +139,8 @@ const Home = () => {
             sx={{
               borderWidth: '2px',
               '&:hover': {
-                borderWidth: '2px'
-              }
+                borderWidth: '2px',
+              },
             }}
           >
             View Portfolio
@@ -149,25 +150,19 @@ const Home = () => {
 
       {/* Featured Works Section */}
       <Container maxWidth="lg" sx={{ my: 8 }}>
-        <Typography 
-          variant="h4" 
-          component="h2" 
-          align="center" 
-          gutterBottom
-          sx={{ mb: 6 }}
-        >
+        <Typography variant="h4" component="h2" align="center" gutterBottom sx={{ mb: 6 }}>
           Featured Works
         </Typography>
         <Grid container spacing={4}>
-          {featuredWorks.map((work) => (
+          {featuredWorks.map(work => (
             <Grid item xs={12} md={4} key={work.id}>
-              <Card 
-                sx={{ 
+              <Card
+                sx={{
                   height: '100%',
                   transition: '0.3s',
                   '&:hover': {
-                    transform: 'translateY(-8px)'
-                  }
+                    transform: 'translateY(-8px)',
+                  },
                 }}
               >
                 <CardMedia
@@ -194,13 +189,7 @@ const Home = () => {
       {/* Testimonials Section */}
       <Box sx={{ bgcolor: 'background.paper', py: 8 }}>
         <Container maxWidth="lg">
-          <Typography 
-            variant="h4" 
-            component="h2" 
-            align="center" 
-            gutterBottom
-            sx={{ mb: 6 }}
-          >
+          <Typography variant="h4" component="h2" align="center" gutterBottom sx={{ mb: 6 }}>
             Client Testimonials
           </Typography>
           <Grid container spacing={4}>
@@ -214,25 +203,25 @@ const Home = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     position: 'relative',
-                    bgcolor: 'background.default'
+                    bgcolor: 'background.default',
                   }}
                 >
-                  <FormatQuote 
-                    sx={{ 
+                  <FormatQuote
+                    sx={{
                       fontSize: 40,
                       opacity: 0.1,
                       position: 'absolute',
                       top: 16,
-                      left: 16
-                    }} 
+                      left: 16,
+                    }}
                   />
-                  <Typography 
-                    variant="body1" 
-                    paragraph 
-                    sx={{ 
+                  <Typography
+                    variant="body1"
+                    paragraph
+                    sx={{
                       mb: 2,
                       fontStyle: 'italic',
-                      pl: 2
+                      pl: 2,
                     }}
                   >
                     "{testimonial.quote}"
@@ -253,10 +242,10 @@ const Home = () => {
       </Box>
 
       {/* Call to Action Section */}
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           bgcolor: 'grey.100',
-          py: 8
+          py: 8,
         }}
       >
         <Container maxWidth="md" sx={{ textAlign: 'center' }}>
@@ -281,4 +270,4 @@ const Home = () => {
   );
 };
 
-export default Home; 
+export default Home;

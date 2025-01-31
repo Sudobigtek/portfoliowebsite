@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogActions,
   Button,
-  Typography
+  Typography,
 } from '@mui/material';
 
 const ConfirmDialog = ({
@@ -16,32 +16,23 @@ const ConfirmDialog = ({
   cancelText = 'Cancel',
   onConfirm,
   onCancel,
-  severity = 'warning'
+  severity = 'warning',
 }) => {
   const colors = {
     warning: 'error.main',
     info: 'primary.main',
-    success: 'success.main'
+    success: 'success.main',
   };
 
   return (
     <Dialog open={open} onClose={onCancel} maxWidth="xs" fullWidth>
-      <DialogTitle sx={{ color: colors[severity] }}>
-        {title}
-      </DialogTitle>
+      <DialogTitle sx={{ color: colors[severity] }}>{title}</DialogTitle>
       <DialogContent>
         <Typography>{message}</Typography>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onCancel}>
-          {cancelText}
-        </Button>
-        <Button 
-          onClick={onConfirm}
-          variant="contained"
-          color={severity}
-          autoFocus
-        >
+        <Button onClick={onCancel}>{cancelText}</Button>
+        <Button onClick={onConfirm} variant="contained" color={severity} autoFocus>
           {confirmText}
         </Button>
       </DialogActions>
@@ -49,4 +40,4 @@ const ConfirmDialog = ({
   );
 };
 
-export default ConfirmDialog; 
+export default ConfirmDialog;

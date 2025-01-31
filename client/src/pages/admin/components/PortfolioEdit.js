@@ -9,7 +9,7 @@ import {
   Box,
   MenuItem,
   IconButton,
-  Typography
+  Typography,
 } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
 import axios from 'axios';
@@ -18,7 +18,7 @@ const categories = [
   { value: 'campaign', label: 'Campaign' },
   { value: 'editorial', label: 'Editorial' },
   { value: 'runway', label: 'Runway' },
-  { value: 'commercial', label: 'Commercial' }
+  { value: 'commercial', label: 'Commercial' },
 ];
 
 const PortfolioEdit = ({ open, onClose, item, onEditComplete }) => {
@@ -28,19 +28,19 @@ const PortfolioEdit = ({ open, onClose, item, onEditComplete }) => {
     photographer: item?.photographer || '',
     client: item?.client || '',
     date: item?.date ? item.date.split('T')[0] : '',
-    image: null
+    image: null,
   });
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value, files } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: files ? files[0] : value
+      [name]: files ? files[0] : value,
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
 
@@ -55,8 +55,8 @@ const PortfolioEdit = ({ open, onClose, item, onEditComplete }) => {
       await axios.put(`/api/portfolio/${item._id}`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       onClose();
@@ -74,10 +74,7 @@ const PortfolioEdit = ({ open, onClose, item, onEditComplete }) => {
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>
         Edit Portfolio Item
-        <IconButton
-          onClick={onClose}
-          sx={{ position: 'absolute', right: 8, top: 8 }}
-        >
+        <IconButton onClick={onClose} sx={{ position: 'absolute', right: 8, top: 8 }}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
@@ -99,7 +96,7 @@ const PortfolioEdit = ({ open, onClose, item, onEditComplete }) => {
               value={formData.category}
               onChange={handleChange}
             >
-              {categories.map((option) => (
+              {categories.map(option => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
                 </MenuItem>
@@ -136,37 +133,22 @@ const PortfolioEdit = ({ open, onClose, item, onEditComplete }) => {
                   width: '100%',
                   maxHeight: 200,
                   objectFit: 'cover',
-                  marginBottom: 8
+                  marginBottom: 8,
                 }}
               />
             </Box>
-            <Button
-              variant="outlined"
-              component="label"
-            >
+            <Button variant="outlined" component="label">
               Change Image
-              <input
-                type="file"
-                hidden
-                name="image"
-                accept="image/*"
-                onChange={handleChange}
-              />
+              <input type="file" hidden name="image" accept="image/*" onChange={handleChange} />
             </Button>
             {formData.image && (
-              <Typography variant="body2">
-                New image selected: {formData.image.name}
-              </Typography>
+              <Typography variant="body2">New image selected: {formData.image.name}</Typography>
             )}
           </Box>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
-          <Button 
-            type="submit" 
-            variant="contained"
-            disabled={loading}
-          >
+          <Button type="submit" variant="contained" disabled={loading}>
             {loading ? 'Saving...' : 'Save Changes'}
           </Button>
         </DialogActions>
@@ -175,4 +157,4 @@ const PortfolioEdit = ({ open, onClose, item, onEditComplete }) => {
   );
 };
 
-export default PortfolioEdit; 
+export default PortfolioEdit;

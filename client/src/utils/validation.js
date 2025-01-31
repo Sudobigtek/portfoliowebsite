@@ -1,9 +1,9 @@
-export const validateEmail = (email) => {
+export const validateEmail = email => {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return re.test(email);
 };
 
-export const validatePassword = (password) => {
+export const validatePassword = password => {
   const minLength = 8;
   const hasUpperCase = /[A-Z]/.test(password);
   const hasLowerCase = /[a-z]/.test(password);
@@ -21,13 +21,13 @@ export const validatePassword = (password) => {
 
   return {
     isValid: errors.length === 0,
-    errors
+    errors,
   };
 };
 
 export const validateForm = (values, rules) => {
   const errors = {};
-  
+
   Object.keys(rules).forEach(field => {
     const value = values[field];
     const fieldRules = rules[field];
@@ -54,22 +54,22 @@ export const validateForm = (values, rules) => {
   return errors;
 };
 
-export const validatePhone = (phone) => {
+export const validatePhone = phone => {
   const re = /^\+?[\d\s-]{10,}$/;
   return {
     isValid: re.test(phone),
-    error: 'Please enter a valid phone number'
+    error: 'Please enter a valid phone number',
   };
 };
 
-export const validateUrl = (url) => {
+export const validateUrl = url => {
   try {
     new URL(url);
     return { isValid: true };
   } catch {
     return {
       isValid: false,
-      error: 'Please enter a valid URL'
+      error: 'Please enter a valid URL',
     };
   }
 };
@@ -92,41 +92,41 @@ export const validateDate = (date, { minDate, maxDate } = {}) => {
 
   return {
     isValid: errors.length === 0,
-    errors
+    errors,
   };
 };
 
 export const commonRules = {
   email: {
     required: true,
-    validate: (value) => !validateEmail(value) && 'Please enter a valid email'
+    validate: value => !validateEmail(value) && 'Please enter a valid email',
   },
   password: {
     required: true,
-    validate: (value) => {
+    validate: value => {
       const result = validatePassword(value);
       return !result.isValid && result.errors[0];
-    }
+    },
   },
   phone: {
-    validate: (value) => {
+    validate: value => {
       if (!value) return;
       const result = validatePhone(value);
       return !result.isValid && result.error;
-    }
+    },
   },
   url: {
-    validate: (value) => {
+    validate: value => {
       if (!value) return;
       const result = validateUrl(value);
       return !result.isValid && result.error;
-    }
+    },
   },
   date: {
     validate: (value, options) => {
       if (!value) return;
       const result = validateDate(value, options);
       return !result.isValid && result.errors[0];
-    }
-  }
-}; 
+    },
+  },
+};

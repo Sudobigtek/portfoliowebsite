@@ -4,7 +4,7 @@ import ImageGallery from '../ImageGallery';
 describe('ImageGallery', () => {
   const mockImages = [
     { id: 1, url: 'test1.jpg', title: 'Test 1' },
-    { id: 2, url: 'test2.jpg', title: 'Test 2' }
+    { id: 2, url: 'test2.jpg', title: 'Test 2' },
   ];
 
   it('renders all images', () => {
@@ -19,4 +19,4 @@ describe('ImageGallery', () => {
     fireEvent.click(firstImage);
     expect(screen.getByRole('dialog')).toBeInTheDocument();
   });
-}); 
+});

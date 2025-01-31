@@ -6,4 +6,4 @@ const InstagramFeed = () => {
 // Add social sharing
 const SocialShare = ({ image, title }) => {
   // Share buttons for various platforms
-}; 
+};

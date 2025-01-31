@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Container,
-  Box,
-  TextField,
-  Button,
-  Typography,
-  Alert
-} from '@mui/material';
+import { Container, Box, TextField, Button, Typography, Alert } from '@mui/material';
 import axios from 'axios';
 
 const ForgotPassword = () => {
@@ -14,13 +7,15 @@ const ForgotPassword = () => {
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
     setStatus('');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/forgot-password', { email });
+      const response = await axios.post('http://localhost:5000/api/auth/forgot-password', {
+        email,
+      });
       setStatus('success');
       setEmail('');
     } catch (error) {
@@ -57,7 +52,7 @@ const ForgotPassword = () => {
             label="Email"
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
           />
           <Button
             type="submit"
@@ -74,4 +69,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword; 
+export default ForgotPassword;

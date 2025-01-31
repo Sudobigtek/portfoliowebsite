@@ -7,7 +7,7 @@ import {
   List,
   ListItem,
   ListItemText,
-  Chip
+  Chip,
 } from '@mui/material';
 import axios from 'axios';
 
@@ -25,7 +25,7 @@ const QueueStatus = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get('/api/queue/stats', {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
       setQueueStats(response.data);
     } catch (error) {
@@ -44,31 +44,19 @@ const QueueStatus = () => {
       </Typography>
       <List>
         <ListItem>
-          <ListItemText 
-            primary="Waiting" 
-            secondary={queueStats?.waiting || 0}
-          />
+          <ListItemText primary="Waiting" secondary={queueStats?.waiting || 0} />
           <Chip label="Pending" color="warning" size="small" />
         </ListItem>
         <ListItem>
-          <ListItemText 
-            primary="Active" 
-            secondary={queueStats?.active || 0}
-          />
+          <ListItemText primary="Active" secondary={queueStats?.active || 0} />
           <Chip label="Processing" color="info" size="small" />
         </ListItem>
         <ListItem>
-          <ListItemText 
-            primary="Completed" 
-            secondary={queueStats?.completed || 0}
-          />
+          <ListItemText primary="Completed" secondary={queueStats?.completed || 0} />
           <Chip label="Success" color="success" size="small" />
         </ListItem>
         <ListItem>
-          <ListItemText 
-            primary="Failed" 
-            secondary={queueStats?.failed || 0}
-          />
+          <ListItemText primary="Failed" secondary={queueStats?.failed || 0} />
           <Chip label="Error" color="error" size="small" />
         </ListItem>
       </List>
@@ -76,4 +64,4 @@ const QueueStatus = () => {
   );
 };
 
-export default QueueStatus; 
+export default QueueStatus;

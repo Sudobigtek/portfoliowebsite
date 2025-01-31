@@ -15,7 +15,7 @@ import {
   ListItemSecondary,
   Divider,
   Snackbar,
-  Alert
+  Alert,
 } from '@mui/material';
 import {
   Add as AddIcon,
@@ -23,7 +23,7 @@ import {
   Delete as DeleteIcon,
   Image as ImageIcon,
   Mail as MailIcon,
-  ExitToApp as LogoutIcon
+  ExitToApp as LogoutIcon,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import Navigation from '../../components/Navigation';
@@ -40,7 +40,11 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [portfolioItems, setPortfolioItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [notification, setNotification] = useState({ open: false, message: '', severity: 'success' });
+  const [notification, setNotification] = useState({
+    open: false,
+    message: '',
+    severity: 'success',
+  });
   const [editItem, setEditItem] = useState(null);
 
   useEffect(() => {
@@ -51,7 +55,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get('/api/portfolio', {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
       setPortfolioItems(response.data);
     } catch (error) {
@@ -70,16 +74,16 @@ const Dashboard = () => {
     setTab(newValue);
   };
 
-  const handleEdit = (item) => {
+  const handleEdit = item => {
     setEditItem(item);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async id => {
     if (window.confirm('Are you sure you want to delete this item?')) {
       try {
         const token = localStorage.getItem('token');
         await axios.delete(`/api/portfolio/${id}`, {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         });
         fetchPortfolioItems();
       } catch (error) {
@@ -99,15 +103,12 @@ const Dashboard = () => {
   const tabs = [
     { label: 'Portfolio', value: 0 },
     { label: 'Messages', value: 1 },
-    { label: 'Bookings', value: 2 }
+    { label: 'Bookings', value: 2 },
   ];
 
   return (
     <>
-      <SEO 
-        title="Admin Dashboard" 
-        description="Portfolio Management Dashboard"
-      />
+      <SEO title="Admin Dashboard" description="Portfolio Management Dashboard" />
       <Navigation />
       <Container maxWidth="lg" sx={{ mt: 8, mb: 8 }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 4 }}>
@@ -154,14 +155,14 @@ const Dashboard = () => {
             ) : (
               <Grid container spacing={3}>
                 {/* Portfolio Items */}
-                {portfolioItems.map((item) => (
+                {portfolioItems.map(item => (
                   <Grid item xs={12} sm={6} md={4} key={item._id}>
-                    <Paper 
-                      sx={{ 
+                    <Paper
+                      sx={{
                         p: 2,
                         '&:hover': {
-                          boxShadow: 3
-                        }
+                          boxShadow: 3,
+                        },
                       }}
                     >
                       <img
@@ -171,7 +172,7 @@ const Dashboard = () => {
                           width: '100%',
                           height: 200,
                           objectFit: 'cover',
-                          marginBottom: 16
+                          marginBottom: 16,
                         }}
                       />
                       <Typography variant="h6" gutterBottom>
@@ -181,14 +182,11 @@ const Dashboard = () => {
                         {item.category}
                       </Typography>
                       <Box sx={{ mt: 2, display: 'flex', gap: 1 }}>
-                        <IconButton 
-                          size="small"
-                          onClick={() => handleEdit(item)}
-                        >
+                        <IconButton size="small" onClick={() => handleEdit(item)}>
                           <EditIcon />
                         </IconButton>
-                        <IconButton 
-                          size="small" 
+                        <IconButton
+                          size="small"
                           color="error"
                           onClick={() => handleDelete(item._id)}
                         >
@@ -204,14 +202,10 @@ const Dashboard = () => {
         )}
 
         {/* Messages */}
-        {tab === 1 && (
-          <MessageList />
-        )}
+        {tab === 1 && <MessageList />}
 
         {/* Bookings */}
-        {tab === 2 && (
-          <BookingManager />
-        )}
+        {tab === 2 && <BookingManager />}
 
         {/* Edit Dialog */}
         {editItem && (
@@ -224,7 +218,7 @@ const Dashboard = () => {
         )}
 
         {/* Upload Dialog */}
-        <PortfolioUpload 
+        <PortfolioUpload
           open={uploadOpen}
           onClose={() => setUploadOpen(false)}
           onUploadComplete={fetchPortfolioItems}
@@ -235,10 +229,7 @@ const Dashboard = () => {
           autoHideDuration={6000}
           onClose={handleCloseNotification}
         >
-          <Alert 
-            onClose={handleCloseNotification} 
-            severity={notification.severity}
-          >
+          <Alert onClose={handleCloseNotification} severity={notification.severity}>
             {notification.message}
           </Alert>
         </Snackbar>
@@ -247,4 +238,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard; 
+export default Dashboard;

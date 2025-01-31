@@ -9,8 +9,8 @@ const DarkModeToggle = () => {
   const colorMode = useContext(ColorModeContext);
 
   return (
-    <IconButton 
-      onClick={colorMode.toggleColorMode} 
+    <IconButton
+      onClick={colorMode.toggleColorMode}
       color="inherit"
       sx={{
         transition: 'transform 0.3s ease-in-out',
@@ -24,4 +24,4 @@ const DarkModeToggle = () => {
   );
 };
 
-export default DarkModeToggle; 
+export default DarkModeToggle;

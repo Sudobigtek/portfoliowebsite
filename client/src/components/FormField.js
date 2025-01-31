@@ -7,7 +7,7 @@ import {
   Select,
   MenuItem,
   Checkbox,
-  FormControlLabel
+  FormControlLabel,
 } from '@mui/material';
 
 const FormField = ({
@@ -22,31 +22,18 @@ const FormField = ({
   required = false,
   ...props
 }) => {
-  const handleChange = (e) => {
+  const handleChange = e => {
     const newValue = type === 'checkbox' ? e.target.checked : e.target.value;
     onChange({ target: { name, value: newValue } });
   };
 
   if (type === 'select') {
     return (
-      <FormControl 
-        fullWidth={fullWidth} 
-        error={!!error}
-        required={required}
-      >
+      <FormControl fullWidth={fullWidth} error={!!error} required={required}>
         <InputLabel>{label}</InputLabel>
-        <Select
-          name={name}
-          value={value}
-          label={label}
-          onChange={handleChange}
-          {...props}
-        >
-          {options.map((option) => (
-            <MenuItem 
-              key={option.value} 
-              value={option.value}
-            >
+        <Select name={name} value={value} label={label} onChange={handleChange} {...props}>
+          {options.map(option => (
+            <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>
           ))}
@@ -59,14 +46,7 @@ const FormField = ({
   if (type === 'checkbox') {
     return (
       <FormControlLabel
-        control={
-          <Checkbox
-            name={name}
-            checked={value}
-            onChange={handleChange}
-            {...props}
-          />
-        }
+        control={<Checkbox name={name} checked={value} onChange={handleChange} {...props} />}
         label={label}
       />
     );
@@ -88,4 +68,4 @@ const FormField = ({
   );
 };
 
-export default FormField; 
+export default FormField;

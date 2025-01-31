@@ -6,4 +6,4 @@ const NewsletterForm = () => {
 // Add blog/news section
 const BlogSection = () => {
   // Latest news, behind the scenes, etc.
-}; 
+};

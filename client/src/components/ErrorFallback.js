@@ -15,7 +15,7 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
           justifyContent: 'center',
           alignItems: 'center',
           textAlign: 'center',
-          gap: 3
+          gap: 3,
         }}
       >
         <Typography variant="h4" gutterBottom>
@@ -25,16 +25,10 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
           {error.message || 'An unexpected error occurred'}
         </Typography>
         <Box sx={{ display: 'flex', gap: 2 }}>
-          <Button 
-            variant="contained" 
-            onClick={resetErrorBoundary}
-          >
+          <Button variant="contained" onClick={resetErrorBoundary}>
             Try Again
           </Button>
-          <Button 
-            variant="outlined" 
-            onClick={() => navigate('/')}
-          >
+          <Button variant="outlined" onClick={() => navigate('/')}>
             Return Home
           </Button>
         </Box>
@@ -43,4 +37,4 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
   );
 };
 
-export default ErrorFallback; 
+export default ErrorFallback;

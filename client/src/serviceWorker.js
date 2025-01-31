@@ -23,4 +23,4 @@ export function register(config) {
   }
 }
 
-// ... rest of service worker code 
+// ... rest of service worker code

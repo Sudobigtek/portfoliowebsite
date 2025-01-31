@@ -4,11 +4,7 @@ import { useRequireAuth } from '../hooks/useAuth';
 import LoadingScreen from './LoadingScreen';
 import { usePermissions } from '../hooks/usePermissions';
 
-const ProtectedRoute = ({ 
-  children, 
-  permissions = [], 
-  redirectTo = '/admin/login' 
-}) => {
+const ProtectedRoute = ({ children, permissions = [], redirectTo = '/admin/login' }) => {
   const location = useLocation();
   const { isAuthenticated, loading } = useRequireAuth(redirectTo);
   const { checkPermissions } = usePermissions();
@@ -28,4 +24,4 @@ const ProtectedRoute = ({
   return children;
 };
 
-export default ProtectedRoute; 
+export default ProtectedRoute;

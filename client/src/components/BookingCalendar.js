@@ -6,6 +6,10 @@
 - Booking management in admin dashboard 
 
 import React, { useState } from 'react';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import axios from 'axios';
 import {
   Box,
   Paper,
@@ -23,7 +27,8 @@ import {
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import axios from 'axios';
+
+const localizer = momentLocalizer(moment);
 
 const BookingCalendar = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -38,6 +43,7 @@ const BookingCalendar = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [events, setEvents] = useState([]);
 
   const shootTypes = [
     { value: 'commercial', label: 'Commercial' },
@@ -93,6 +99,24 @@ const BookingCalendar = () => {
     return date < new Date() || date.getDay() === 0 || date.getDay() === 6;
   };
 
+  const handleSelect = ({ start, end }) => {
+    const title = window.prompt('New Event name');
+    if (title) {
+      setEvents([
+        ...events,
+        {
+          start,
+          end,
+          title,
+        },
+      ]);
+    }
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Box sx={{ maxWidth: 800, mx: 'auto', p: 3 }}>
@@ -120,7 +144,7 @@ const BookingCalendar = () => {
           />
         </Paper>
 
-        <Dialog open={open} onClose={() => setOpen(false)} maxWidth="sm" fullWidth>
+        <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
           <DialogTitle>Book Shoot for {selectedDate?.toLocaleDateString()}</DialogTitle>
           <form onSubmit={handleSubmit}>
             <DialogContent>
@@ -192,7 +216,7 @@ const BookingCalendar = () => {
               </Grid>
             </DialogContent>
             <DialogActions>
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button onClick={handleClose}>Cancel</Button>
               <Button 
                 type="submit" 
                 variant="contained"
@@ -203,6 +227,18 @@ const BookingCalendar = () => {
             </DialogActions>
           </form>
         </Dialog>
+
+        <div style={{ height: '500px', marginTop: 20 }}>
+          <Calendar
+            selectable
+            localizer={localizer}
+            events={events}
+            startAccessor="start"
+            endAccessor="end"
+            onSelectSlot={handleSelect}
+            style={{ height: '100%' }}
+          />
+        </div>
       </Box>
     </LocalizationProvider>
   );

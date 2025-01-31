@@ -8,7 +8,7 @@ import {
   Button,
   Box,
   MenuItem,
-  IconButton
+  IconButton,
 } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
 import axios from 'axios';
@@ -17,7 +17,7 @@ const categories = [
   { value: 'campaign', label: 'Campaign' },
   { value: 'editorial', label: 'Editorial' },
   { value: 'runway', label: 'Runway' },
-  { value: 'commercial', label: 'Commercial' }
+  { value: 'commercial', label: 'Commercial' },
 ];
 
 const PortfolioUpload = ({ open, onClose, onUploadComplete }) => {
@@ -27,19 +27,19 @@ const PortfolioUpload = ({ open, onClose, onUploadComplete }) => {
     photographer: '',
     client: '',
     date: '',
-    image: null
+    image: null,
   });
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value, files } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: files ? files[0] : value
+      [name]: files ? files[0] : value,
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
 
@@ -53,8 +53,8 @@ const PortfolioUpload = ({ open, onClose, onUploadComplete }) => {
       await axios.post('/api/portfolio', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       onClose();
@@ -72,10 +72,7 @@ const PortfolioUpload = ({ open, onClose, onUploadComplete }) => {
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>
         Add New Work
-        <IconButton
-          onClick={onClose}
-          sx={{ position: 'absolute', right: 8, top: 8 }}
-        >
+        <IconButton onClick={onClose} sx={{ position: 'absolute', right: 8, top: 8 }}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
@@ -97,7 +94,7 @@ const PortfolioUpload = ({ open, onClose, onUploadComplete }) => {
               value={formData.category}
               onChange={handleChange}
             >
-              {categories.map((option) => (
+              {categories.map(option => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
                 </MenuItem>
@@ -123,33 +120,18 @@ const PortfolioUpload = ({ open, onClose, onUploadComplete }) => {
               onChange={handleChange}
               InputLabelProps={{ shrink: true }}
             />
-            <Button
-              variant="outlined"
-              component="label"
-            >
+            <Button variant="outlined" component="label">
               Upload Image
-              <input
-                type="file"
-                hidden
-                name="image"
-                accept="image/*"
-                onChange={handleChange}
-              />
+              <input type="file" hidden name="image" accept="image/*" onChange={handleChange} />
             </Button>
             {formData.image && (
-              <Typography variant="body2">
-                Selected: {formData.image.name}
-              </Typography>
+              <Typography variant="body2">Selected: {formData.image.name}</Typography>
             )}
           </Box>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
-          <Button 
-            type="submit" 
-            variant="contained"
-            disabled={loading}
-          >
+          <Button type="submit" variant="contained" disabled={loading}>
             {loading ? 'Uploading...' : 'Upload'}
           </Button>
         </DialogActions>
@@ -158,4 +140,4 @@ const PortfolioUpload = ({ open, onClose, onUploadComplete }) => {
   );
 };
 
-export default PortfolioUpload; 
+export default PortfolioUpload;

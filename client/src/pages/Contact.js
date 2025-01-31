@@ -8,7 +8,7 @@ import {
   Box,
   Alert,
   Paper,
-  CircularProgress
+  CircularProgress,
 } from '@mui/material';
 import { Send as SendIcon } from '@mui/icons-material';
 import axios from 'axios';
@@ -20,7 +20,7 @@ const Contact = () => {
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
   });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState({ type: '', message: '' });
@@ -64,7 +64,7 @@ const Contact = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     // Name validation
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
@@ -98,24 +98,24 @@ const Contact = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
-        [name]: ''
+        [name]: '',
       }));
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -127,14 +127,14 @@ const Contact = () => {
       const response = await axios.post('/api/contact', formData);
       setStatus({
         type: 'success',
-        message: 'Message sent successfully! We will get back to you soon.'
+        message: 'Message sent successfully! We will get back to you soon.',
       });
       setFormData({ name: '', email: '', subject: '', message: '' });
       clearSavedForm();
     } catch (error) {
       setStatus({
         type: 'error',
-        message: error.response?.data?.message || 'Failed to send message. Please try again.'
+        message: error.response?.data?.message || 'Failed to send message. Please try again.',
       });
     } finally {
       setLoading(false);
@@ -143,8 +143,8 @@ const Contact = () => {
 
   return (
     <>
-      <SEO 
-        title="Contact" 
+      <SEO
+        title="Contact"
         description="Get in touch for bookings, collaborations, and inquiries."
       />
       <Navigation />
@@ -163,9 +163,12 @@ const Contact = () => {
                 Agency Representation
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                New York<br />
-                Agency Name<br />
-                +1 (212) 555-0123<br />
+                New York
+                <br />
+                Agency Name
+                <br />
+                +1 (212) 555-0123
+                <br />
                 agency@example.com
               </Typography>
             </Box>
@@ -178,15 +181,15 @@ const Contact = () => {
           <Grid item xs={12} md={8}>
             <Paper elevation={0} sx={{ p: 4, bgcolor: 'grey.50' }}>
               {status.message && (
-                <Alert 
-                  severity={status.type} 
+                <Alert
+                  severity={status.type}
                   sx={{ mb: 3 }}
                   onClose={() => setStatus({ type: '', message: '' })}
                 >
                   {status.message}
                 </Alert>
               )}
-              
+
               <form onSubmit={handleSubmit}>
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={6}>
@@ -241,16 +244,21 @@ const Contact = () => {
                       onChange={handleChange}
                       error={Boolean(errors.message)}
                       helperText={
-                        <Box component="span" sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Box
+                          component="span"
+                          sx={{ display: 'flex', justifyContent: 'space-between' }}
+                        >
                           <span>{errors.message}</span>
-                          <span style={{ color: charCount > 1000 ? 'error.main' : 'text.secondary' }}>
+                          <span
+                            style={{ color: charCount > 1000 ? 'error.main' : 'text.secondary' }}
+                          >
                             {charCount}/1000
                           </span>
                         </Box>
                       }
                       disabled={loading}
                       inputProps={{
-                        maxLength: 1000
+                        maxLength: 1000,
                       }}
                     />
                   </Grid>
@@ -275,4 +283,4 @@ const Contact = () => {
   );
 };
 
-export default Contact; 
+export default Contact;
