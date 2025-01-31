@@ -34,7 +34,7 @@ const Navigation = () => {
   const menuItems = [
     { text: 'Home', path: '/' },
     { text: 'Portfolio', path: '/portfolio' },
-    { text: 'About', path: '/about' },
+    { text: 'Book', path: '/book' },
     { text: 'Contact', path: '/contact' },
   ];
 
@@ -69,7 +69,7 @@ const Navigation = () => {
 
   const drawer = (
     <List>
-      {menuItems.map(item => (
+      {menuItems.map((item) => (
         <ListItem
           button
           component={Link}
@@ -143,7 +143,7 @@ const Navigation = () => {
               </IconButton>
             ) : (
               <Box>
-                {menuItems.map(item => (
+                {menuItems.map((item) => (
                   <Button
                     key={item.text}
                     component={Link}

@@ -12,7 +12,7 @@ import {
   useMediaQuery,
   Paper,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import SEO from '../components/SEO';
 import { FormatQuote } from '@mui/icons-material';
@@ -86,6 +86,78 @@ const Home = () => {
       />
       <Navigation />
 
+      <Box>
+        <Box textAlign="center" mb={6}>
+          <Typography variant="h2" component="h1" gutterBottom>
+            Welcome to My Portfolio
+          </Typography>
+          <Typography variant="h5" color="text.secondary" paragraph>
+            Capturing moments, creating memories, and telling stories through photography
+          </Typography>
+        </Box>
+
+        <Grid container spacing={4} justifyContent="center">
+          <Grid item xs={12} md={4}>
+            <Box textAlign="center">
+              <Typography variant="h4" gutterBottom>
+                Portfolio
+              </Typography>
+              <Typography paragraph>
+                Explore my collection of professional photography work spanning various genres and styles.
+              </Typography>
+              <Button
+                component={RouterLink}
+                to="/portfolio"
+                variant="contained"
+                size="large"
+              >
+                View Portfolio
+              </Button>
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+            <Box textAlign="center">
+              <Typography variant="h4" gutterBottom>
+                Book a Shoot
+              </Typography>
+              <Typography paragraph>
+                Ready to create something amazing? Book a photography session with me.
+              </Typography>
+              <Button
+                component={RouterLink}
+                to="/book"
+                variant="contained"
+                size="large"
+                color="secondary"
+              >
+                Book Now
+              </Button>
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+            <Box textAlign="center">
+              <Typography variant="h4" gutterBottom>
+                Contact
+              </Typography>
+              <Typography paragraph>
+                Have questions? Get in touch with me to discuss your photography needs.
+              </Typography>
+              <Button
+                component={RouterLink}
+                to="/contact"
+                variant="contained"
+                size="large"
+                color="primary"
+              >
+                Contact Me
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
+
       {/* Hero Section */}
       <Box
         sx={{
@@ -131,7 +203,7 @@ const Home = () => {
             Professional Model & Influencer
           </Typography>
           <Button
-            component={Link}
+            component={RouterLink}
             to="/portfolio"
             variant="outlined"
             color="inherit"
@@ -256,7 +328,7 @@ const Home = () => {
             Available for fashion shows, photo shoots, and brand campaigns
           </Typography>
           <Button
-            component={Link}
+            component={RouterLink}
             to="/contact"
             variant="contained"
             size="large"

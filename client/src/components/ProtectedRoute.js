@@ -1,27 +1,25 @@
 import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { useRequireAuth } from '../hooks/useAuth';
+import { Navigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import usePermissions from '../hooks/usePermissions';
 import LoadingScreen from './LoadingScreen';
-import { usePermissions } from '../hooks/usePermissions';
 
-const ProtectedRoute = ({ children, permissions = [], redirectTo = '/admin/login' }) => {
-  const location = useLocation();
-  const { isAuthenticated, loading } = useRequireAuth(redirectTo);
-  const { checkPermissions } = usePermissions();
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated, isLoading } = usePermissions();
 
-  if (loading) {
+  if (isLoading) {
     return <LoadingScreen />;
   }
 
   if (!isAuthenticated) {
-    return <Navigate to={redirectTo} state={{ from: location }} replace />;
-  }
-
-  if (permissions.length > 0 && !checkPermissions(permissions)) {
-    return <Navigate to="/unauthorized" replace />;
+    return <Navigate to="/admin/login" replace />;
   }
 
   return children;
+};
+
+ProtectedRoute.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default ProtectedRoute;
