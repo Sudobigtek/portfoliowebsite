@@ -1,0 +1,50 @@
+version: 2
+updates:
+  # Enable version updates for npm (client)
+  - package-ecosystem: "npm"
+    directory: "/client"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    versioning-strategy: increase
+    labels:
+      - "dependencies"
+      - "npm"
+    reviewers:
+      - "Sudobigtek"
+    commit-message:
+      prefix: "⬆️ "
+      include: "scope"
+
+  # Enable version updates for npm (server)
+  - package-ecosystem: "npm"
+    directory: "/server"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    versioning-strategy: increase
+    labels:
+      - "dependencies"
+      - "npm"
+    reviewers:
+      - "Sudobigtek"
+    commit-message:
+      prefix: "⬆️ "
+      include: "scope"
+
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "github-actions"
+    reviewers:
+      - "Sudobigtek"
+    commit-message:
+      prefix: "⬆️ " 
