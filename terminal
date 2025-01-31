@@ -1,0 +1,18 @@
+mkdir modeling-portfolio
+cd modeling-portfolio
+mkdir client server
+npm init -y
+
+cd client
+npx create-react-app .
+npm install axios react-router-dom @mui/material @mui/icons-material @emotion/react @emotion/styled react-helmet-async
+
+cd ../server
+npm init -y
+npm install express mongoose dotenv cors multer cloudinary helmet morgan jsonwebtoken bcryptjs nodemailer express-rate-limit bull ioredis @bull-board/express @bull-board/api
+
+cd server
+npm install nodemailer
+npm install cloudinary
+npm install googleapis
+npm run create-admin 

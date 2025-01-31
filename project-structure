@@ -1,0 +1,14 @@
+modeling-portfolio/
+├── client/
+│   ├── public/
+│   ├── src/
+│   └── package.json
+├── server/
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── uploads/
+│   └── package.json
+└── package.json 

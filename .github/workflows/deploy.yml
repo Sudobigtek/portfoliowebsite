@@ -2,52 +2,44 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'npm'
+          cache-dependency-path: 'client/package-lock.json'
 
-      - name: Install dependencies
+      - name: Install Dependencies
         working-directory: ./client
-        run: npm install
+        run: npm ci
 
-      - name: Build project
+      - name: Run Tests
+        working-directory: ./client
+        run: npm run test:ci
+
+      - name: Build
         working-directory: ./client
         run: npm run build
         env:
-          CI: false
+          CI: true
+          REACT_APP_SITE_URL: 'https://sudobigtek.github.io/portfoliowebsite'
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: './client/build'
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2 
+          folder: client/build
+          branch: gh-pages 
