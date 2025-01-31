@@ -26,7 +26,11 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "test:ci": "react-scripts test --coverage --watchAll=false --testResultsProcessor=jest-junit",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
   },
   "eslintConfig": {
     "extends": [
@@ -34,6 +38,35 @@
       "react-app/jest"
     ]
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/index.js",
+      "!src/reportWebVitals.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
+  },
+  "bundlesize": [
+    {
+      "path": "build/static/js/*.js",
+      "maxSize": "200 kB"
+    },
+    {
+      "path": "build/static/css/*.css",
+      "maxSize": "50 kB"
+    },
+    {
+      "path": "build/static/media/*",
+      "maxSize": "300 kB"
+    }
+  ],
   "browserslist": {
     "production": [
       ">0.2%",
@@ -47,6 +80,13 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^5.0.0"
+    "@playwright/test": "^1.32.0",
+    "bundlesize": "^0.18.1",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "gh-pages": "^5.0.0",
+    "jest-junit": "^15.0.0",
+    "prettier": "^2.8.8",
+    "source-map-explorer": "^2.5.3"
   }
 } 
