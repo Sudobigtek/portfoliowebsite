@@ -43,7 +43,7 @@ jobs:
         run: npm run build -- --profile
 
       - name: Analyze bundle size
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: bundle-analysis
           path: client/build/bundle-stats.json 
