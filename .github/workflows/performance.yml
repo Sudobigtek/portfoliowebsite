@@ -1,0 +1,49 @@
+name: Performance Monitoring
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * *'  # Run daily
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v9
+        with:
+          urls: |
+            https://sudobigtek.github.io/portfoliowebsite
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          configPath: './lighthouse.config.js'
+
+  bundle-analysis:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./client
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build with source maps
+        run: npm run build -- --profile
+
+      - name: Analyze bundle size
+        uses: actions/upload-artifact@v2
+        with:
+          name: bundle-analysis
+          path: client/build/bundle-stats.json 
